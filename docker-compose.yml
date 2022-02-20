@@ -32,6 +32,26 @@ x-db-defaults: &db-defaults
     retries: 6
 
 services:
+  caddy:
+    container_name: listmonk_caddy
+    image: caddy:alpine
+    restart: unless-stopped
+    # cap_add:
+    #   - CAP_NET_BIND_SERVICE
+    ports:
+      # Host Port: Container Port
+      - "80:80"
+      - "443:443"
+      # Somehow I can't access port 2019 from docker host and don't know why. Firewall rules?
+      - "2019:2019"
+    # networks:
+    #   - caddy
+    volumes:
+      - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
   db:
     <<: *db-defaults
     container_name: listmonk_db
@@ -46,7 +66,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./config.toml:/listmonk/config.toml
+      - $PWD/listmonk/config.toml:/listmonk/config.toml
 
   demo-db:
     container_name: listmonk_demo_db
@@ -64,3 +84,5 @@ networks:
 
 volumes:
   listmonk-data:
+  caddy_data:
+  caddy_config:
