@@ -1,3 +1,6 @@
-listmonk.p1slave.com {
+{$CADDY_LISTMONK_DOMAIN_URL} {
 	reverse_proxy listmonk_app:9000
+  tls {
+    dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
+  }
 }

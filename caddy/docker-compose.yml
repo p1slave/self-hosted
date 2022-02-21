@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cloudflare_caddy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 2019:2019
+    volumes:
+      - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+      - caddy_config:/config
+      - caddy_data:/data
+
+networks:
+  default:
+      name: caddy_net
+
+volumes:
+  caddy_data:
+  caddy_config:
