@@ -4,3 +4,10 @@
     dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
   }
 }
+
+{$CADDY_FORUM_DOMAIN_URL} {
+	reverse_proxy nodebb_app:4567
+  tls {
+    dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
+  }
+}
