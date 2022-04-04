@@ -3,22 +3,33 @@ services:
   caddy:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: $PWD/Dockerfile
     container_name: cloudflare_caddy
+    # depends_on:
+    #   - listmonk
+    #   - nodebb
     restart: always
     ports:
       - 80:80
       - 443:443
       - 2019:2019
+    # networks:
+    #   - external-self-hosted-net
+    environment:
+      - CADDY_LISTMONK_DOMAIN_URL=${CADDY_LISTMONK_DOMAIN_URL}
+      - CADDY_FORUM_DOMAIN_URL=${CADDY_FORUM_DOMAIN_URL}
+      - CADDY_MAILU_DOMAIN_URL=${CADDY_MAILU_DOMAIN_URL}
+      - CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN=${CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
     volumes:
       - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
+      # - $PWD/site:/srv
       - caddy_config:/config
       - caddy_data:/data
 
-networks:
-  default:
-      name: caddy_net
+networks: 
+  default: 
+    name: external-self-hosted-net 
+    external: true 
 
 volumes:
   caddy_data:

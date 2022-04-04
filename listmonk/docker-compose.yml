@@ -1,0 +1,54 @@
+
+# NOTE: This docker-compose.yml is meant to be just an example guideline
+# on how you can achieve the same. It is not intented to run out of the box
+# and you must edit the below configurations to suit your needs.
+
+version: "3.7"
+
+services:
+  postgre:
+    container_name: listmonk_postgre_db
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    # networks:
+    #   - external-self-hosted-net
+    environment:
+      - POSTGRES_PASSWORD=listmonk
+      - POSTGRES_USER=listmonk
+      - POSTGRES_DB=listmonk
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    volumes:
+      - type: volume
+        source: listmonk-data
+        target: /var/lib/postgresql/data
+
+  listmonk:
+    container_name: listmonk_app
+    restart: unless-stopped
+    image: listmonk/listmonk:v2.1.0
+    ports:
+      - "9000:9000"
+    # networks:
+    #   - external-self-hosted-net
+    environment:
+      - TZ=Etc/UTC
+      - LISTMONK_app__admin_username=${LISTMONK_app__admin_username}
+      - LISTMONK_app__admin_password=${LISTMONK_app__admin_password}
+    depends_on:
+      - postgre
+    volumes:
+      - $PWD/listmonk/config.toml:/listmonk/config.toml
+
+networks: 
+  default: 
+    name: external-self-hosted-net 
+    external: true 
+
+volumes:
+  listmonk-data:
