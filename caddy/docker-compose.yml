@@ -3,7 +3,7 @@ services:
   caddy:
     build:
       context: .
-      dockerfile: $PWD/Dockerfile
+      dockerfile: $PWD/caddy/Dockerfile
     container_name: cloudflare_caddy
     # depends_on:
     #   - listmonk
