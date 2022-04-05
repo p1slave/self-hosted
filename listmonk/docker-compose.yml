@@ -6,7 +6,7 @@
 version: "3.7"
 
 services:
-  postgre:
+  db:
     container_name: listmonk_postgre_db
     image: postgres:13
     ports:
@@ -28,7 +28,7 @@ services:
         source: listmonk-data
         target: /var/lib/postgresql/data
 
-  listmonk:
+  app:
     container_name: listmonk_app
     restart: unless-stopped
     image: listmonk/listmonk:v2.1.0

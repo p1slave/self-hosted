@@ -15,7 +15,7 @@ admin_password = "listmonk"
 
 # Database.
 [db]
-host = "listmonk_db"
+host = "listmonk_postgre_db"
 port = 5432
 user = "listmonk"
 password = "listmonk"
