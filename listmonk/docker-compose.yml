@@ -41,7 +41,7 @@ services:
       - LISTMONK_app__admin_username=${LISTMONK_app__admin_username}
       - LISTMONK_app__admin_password=${LISTMONK_app__admin_password}
     depends_on:
-      - postgre
+      - db
     volumes:
       - $PWD/listmonk/config.toml:/listmonk/config.toml
 
