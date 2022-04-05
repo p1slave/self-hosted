@@ -1,0 +1,39 @@
+# NOTE: This docker-compose.yml is meant to be just an example guideline
+# on how you can achieve the same. It is not intented to run out of the box
+# and you must edit the below configurations to suit your needs.
+
+version: "3.7"
+
+services:
+  nodebb_db:
+    container_name: nodebb_redis_db
+    image: redis:6.2-alpine
+    ports:
+      - 6379:6379
+    command: redis-server --save 60 1 --loglevel warning
+
+  nodebb:
+    container_name: nodebb_app
+    image: ghcr.io/rez0n/nodebb:beta
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   args:
+    #     RELEASE: "v1.15.0-beta.29"
+    restart: unless-stopped
+    environment:
+      URL: "http://localhost"
+      DATABASE: "redis"
+      DB_NAME: "0"
+      DB_HOST: "redis"
+      # DB_PASSWORD: "123"
+      DB_PORT: "6379"
+    volumes:
+      - ./data/nodebb:/data
+    ports:
+      - "4567:4567"
+
+networks: 
+  default: 
+    name: external-self-hosted-net 
+    external: true 

@@ -6,7 +6,7 @@
 version: "3.7"
 
 services:
-  db:
+  listmonk_db:
     container_name: listmonk_postgre_db
     image: postgres:13
     ports:
@@ -28,7 +28,7 @@ services:
         source: listmonk-data
         target: /var/lib/postgresql/data
 
-  app:
+  listmonk:
     container_name: listmonk_app
     restart: unless-stopped
     image: listmonk/listmonk:v2.1.0
@@ -41,7 +41,7 @@ services:
       - LISTMONK_app__admin_username=${LISTMONK_app__admin_username}
       - LISTMONK_app__admin_password=${LISTMONK_app__admin_password}
     depends_on:
-      - db
+      - listmonk_db
     volumes:
       - $PWD/listmonk/config.toml:/listmonk/config.toml
 

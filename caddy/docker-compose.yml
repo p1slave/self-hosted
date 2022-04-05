@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: $PWD/caddy/Dockerfile
     container_name: cloudflare_caddy
-    # depends_on:
-    #   - listmonk
-    #   - nodebb
+    depends_on:
+      - linkmonk
+      - nodebb
     restart: always
     ports:
       - 80:80
