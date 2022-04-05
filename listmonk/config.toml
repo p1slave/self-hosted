@@ -1,5 +1,4 @@
-# The name of the listmonk service in docker
-[listmonk]
+[app]
 # Interface and port where the app will run its webserver. The default value
 # of localhost will only listen to connections from the current machine. To
 # listen on all interfaces use '0.0.0.0'. To listen on the default web address
@@ -14,8 +13,7 @@ address = "0.0.0.0:9000"
 admin_username = "listmonk"
 admin_password = "listmonk"
 
-# Database service in docker for listmonk.
-[listmonk_db]
+[db]
 # Use the name of docker container for listmonk database.
 host = "listmonk_postgre_db"
 port = 5432
