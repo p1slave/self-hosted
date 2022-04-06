@@ -154,10 +154,16 @@ services:
     dns:
       - 192.168.203.254
 
-networks:
-  default:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.203.0/24
+# networks:
+#   default:
+#     driver: bridge
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 192.168.203.0/24
+
+networks: 
+  default: 
+    name: external-self-hosted-net 
+    external: true 
+    subnet: 192.168.203.0/24
