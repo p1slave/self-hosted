@@ -11,3 +11,10 @@
     dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
   }
 }
+
+{$CADDY_MAILU_DOMAIN_URL} {
+	reverse_proxy mailu_front:8080
+  tls {
+    dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
+  }
+}
