@@ -18,3 +18,10 @@
     dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
   }
 }
+
+{$CADDY_ARCHIVEBOX_DOMAIN_URL} {
+	reverse_proxy archivebox_app:8000
+  tls {
+    dns cloudflare {$CADDY_CLOUDFLARE_ZONE_DNS_API_TOKEN}
+  }
+}
