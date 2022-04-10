@@ -29,7 +29,7 @@ services:
       # DB_PASSWORD: "123"
       DB_PORT: "6379"
     volumes:
-      - ./data/nodebb:/data
+      - /docker-data/nodebb:/data
     ports:
       - "4567:4567"
 

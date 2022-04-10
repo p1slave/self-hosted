@@ -24,8 +24,8 @@ services:
     volumes:
       - $PWD/caddy/Caddyfile:/etc/caddy/Caddyfile
       # - $PWD/site:/srv
-      - caddy_config:/config
-      - caddy_data:/data
+      - /docker-data/caddy/caddy_config:/config
+      - /docker-data/caddy/caddy_data:/data
 
 networks: 
   default: 
