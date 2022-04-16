@@ -11,6 +11,8 @@ services:
     ports:
       - 6379:6379
     command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - /docker-data/nodebb-redis:/data
 
   nodebb:
     container_name: nodebb_app
@@ -25,7 +27,8 @@ services:
       URL: "http://localhost"
       DATABASE: "redis"
       DB_NAME: "0"
-      DB_HOST: "nodebb_redis_db"
+      # Use the service name as the DB_HOST
+      DB_HOST: "nodebb_db"
       # DB_PASSWORD: "123"
       DB_PORT: "6379"
     volumes:
