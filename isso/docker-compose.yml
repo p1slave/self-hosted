@@ -1,0 +1,16 @@
+version: "3.7"
+
+# Import comments from disqus by executing the following command in the container
+# docker exec -it isso_webapp /isso/bin/isso -c /config/isso.cfg import -t disqus /config/p1slave.xml --empty-id
+
+services:
+  isso:
+    container_name: isso_webapp
+    restart: unless-stopped
+    image: ghcr.io/isso-comments/isso:latest
+    ports:
+      - "8080:8080"
+      - "2465:2465"
+    volumes:
+      - /www/wwwroot/comments.p1slave.com/isso/config/isso.cfg:/config/isso.cfg
+      - /www/wwwroot/comments.p1slave.com/isso/db/comments.db:/db/comments.db
