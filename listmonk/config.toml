@@ -15,10 +15,12 @@ admin_password = "listmonk"
 
 [db]
 # Use the name of docker container for listmonk database.
+# Change the password other than string "listmonk" but keep the username as listmonk otherwise
+# the database will return error for nonexistent user role "listmonk"
 host = "listmonk_postgre_db"
 port = 5432
 user = "listmonk"
-password = "listmonk"
+password = "password"
 database = "listmonk"
 ssl_mode = "disable"
 max_open = 25
