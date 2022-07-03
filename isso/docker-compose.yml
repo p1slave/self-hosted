@@ -10,7 +10,6 @@ services:
     image: ghcr.io/isso-comments/isso:latest
     ports:
       - "8080:8080"
-      - "2465:2465"
     volumes:
       - /www/wwwroot/comments.p1slave.com/isso/config/isso.cfg:/config/isso.cfg
       - /www/wwwroot/comments.p1slave.com/isso/db/comments.db:/db/comments.db
